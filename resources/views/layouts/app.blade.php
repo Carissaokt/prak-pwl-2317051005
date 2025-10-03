@@ -6,7 +6,7 @@
   <title><?=$title?></title>
 </head>
 <body>
-  <h1>First Blade Template</h1>
+  <!-- <h1>First Blade Template</h1> -->
   @yield('content')
 </body>
 </html>
