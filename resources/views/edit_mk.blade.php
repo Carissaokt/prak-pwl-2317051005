@@ -2,8 +2,6 @@
 
 @section('content')
 
-<x-navbar />
-
 <style>
     body {
         min-height: 100vh;
@@ -84,19 +82,22 @@
     }
 </style>
 
+
 <div class="aurora-bg"></div>
 
 <div class="mk-form-card">
-    <h1>Buat Mata Kuliah Baru</h1>
-    <form action="{{ route('mk.store') }}" method="POST">
+    <h1>Edit Mata Kuliah</h1>
+    <form action="{{ route('mk.update', $mk->id) }}" method="POST">
         @csrf
+        @method('PUT')
+
         <label for="nama_mk">Nama Mata Kuliah</label>
-        <input type="text" id="nama_mk" name="nama_mk" required>
+        <input type="text" id="nama_mk" name="nama_mk" value="{{ $mk->nama_mk }}" required>
 
         <label for="sks">SKS</label>
-        <input type="number" id="sks" name="sks" required min="1" max="8">
+        <input type="number" id="sks" name="sks" value="{{ $mk->sks }}" required min="1" max="8">
 
-        <button type="submit" class="btn-primary">Submit</button>
+        <button type="submit" class="btn-primary">Update</button>
     </form>
 </div>
 
