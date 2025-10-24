@@ -1,9 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\MataKuliahController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +17,16 @@ use App\Http\Controllers\MataKuliahController;
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
 Route::get('/profile/{nama}/{npm}/{kelas}',[ProfileController::class, 'profile']);
 
@@ -36,3 +44,5 @@ Route::post('/mk', [MataKuliahController::class, 'store'])->name('mk.store');
 Route::get('/mk/{id}/edit', [MataKuliahController::class, 'edit'])->name('mk.edit');
 Route::put('/mk/{id}', [MataKuliahController::class, 'update'])->name('mk.update');
 Route::delete('/mk/{id}', [MataKuliahController::class, 'destroy'])->name('mk.destroy');
+
+require __DIR__.'/auth.php';
